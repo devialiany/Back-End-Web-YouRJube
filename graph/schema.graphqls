@@ -1,0 +1,418 @@
+type Creator {
+  id: ID!
+  name: String!
+  email: String!
+  join_date: String!
+  description: String!
+  photo_profile: String!
+  photo_background: String!
+  membership_status: Int!
+  subscriber: Int!
+  restricted: Int!
+  link: String!
+
+  playlists: [Playlist!]!
+  videos: [Video!]!
+  subscribers: [Subscriber!]!
+}
+
+type Category {
+  id: ID!
+  category: String!
+
+  videos: [Video!]!
+}
+
+type Video {
+  id: ID!
+  title: String!
+  description: String!
+  duration: Int!
+  date_upload: String!
+  date_publish: String!
+  photo_thumbnail: String!
+  video_file: String!
+  restricted: Int!
+  privacy: Int!
+  premium: Int!
+  status: Int!
+  viewer: Int!
+  creator_id: Int!
+  category_id: Int!
+  location: String!
+
+  category: Category!
+  creator: Creator!
+}
+
+type Comment {
+  id: ID!
+  content: String!
+  date_upload: String!
+  video_id: Int!
+  creator_id: Int!
+
+  replies: [Reply!]!
+  creator: Creator!
+}
+
+type Reply {
+  id: ID!
+  content: String!
+  date_upload: String!
+  comment_id: Int!
+  creator_id: Int!
+
+  creator: Creator!
+}
+
+type Subscriber {
+  id: ID!
+  channel_id: Int!
+  creator_id: Int!
+
+  creator: Creator!
+}
+
+type Membership {
+  id: ID!
+  creator_id: Int!
+  type: Int!
+  date: String!
+  expired_date: String!
+  status: String!
+
+  creator: Creator!
+}
+
+type Playlist {
+  id: ID!
+  title: String!
+  date: String!
+  description: String!
+  viewer: Int!
+  creator_id: Int!
+  type: Int!
+
+  creator: Creator!
+}
+
+type Community {
+  id: ID!
+
+  title: String!
+  description: String!
+  post_image: String!
+  date: String!
+  creator_id: Int!
+
+  creator: Creator!
+}
+
+type Feedbackcommunity {
+  id: ID!
+  community_id: Int!
+  liker_id: Int!
+  status: Boolean!
+}
+
+type Playlistdetail {
+  playlist_id: Int!
+  video_id: Int!
+
+  playlist: Playlist!
+  video: Video!
+}
+
+type Feedbackvideo {
+  id: ID!
+  video_id: Int!
+  liker_id: Int!
+  status: Boolean!
+}
+
+type Feedbackcomment {
+  id: ID!
+  comment_id: Int!
+  liker_id: Int!
+  status: Boolean!
+}
+
+type Userplaylist {
+  creator_id: Int!
+  playlist_id: Int!
+}
+
+type Notifpost {
+  id: ID!
+  community_id: Int!
+  creator_id: Int!
+
+  community: Community!
+}
+
+type Notifvideo {
+  id: ID!
+  video_id: Int!
+  creator_id: Int!
+
+  video: Video!
+}
+input newVideo {
+  title: String!
+  description: String!
+  duration: Int!
+  date_upload: String!
+  date_publish: String!
+  photo_thumbnail: String!
+  video_file: String!
+  restricted: Int!
+  privacy: Int!
+  premium: Int!
+  status: Int!
+  viewer: Int!
+  creator_id: Int!
+  category_id: Int!
+  location: String!
+}
+
+input newCreator {
+  name: String!
+  email: String!
+  join_date: String!
+  description: String!
+  photo_profile: String!
+  photo_background: String!
+  membership_status: Int!
+  subscriber: Int!
+  restricted: Int!
+}
+
+input newComment {
+  content: String!
+  date_upload: String!
+  video_id: Int!
+  creator_id: Int!
+}
+
+input newReply {
+  content: String!
+  date_upload: String!
+  comment_id: Int!
+  creator_id: Int!
+}
+
+input newSubscriber {
+  channel_id: Int!
+  creator_id: Int!
+}
+
+input newMembership {
+  creator_id: Int!
+  type: Int!
+  date: String!
+  expired_date: String!
+  status: String!
+}
+
+input updateMembershipStatusCreator {
+  membership_status: Int!
+}
+
+input newLikeCommunity {
+  community_id: Int!
+  liker_id: Int!
+  status: Boolean!
+}
+
+input newLikeVideo {
+  video_id: Int!
+  liker_id: Int!
+  status: Boolean!
+}
+
+input newLikeComment {
+  comment_id: Int!
+  liker_id: Int!
+  status: Boolean!
+}
+
+input updateLikeCommunity {
+  status: Boolean!
+}
+
+input updateLikeVideo {
+  status: Boolean!
+}
+
+input updateLikeComment {
+  status: Boolean!
+}
+
+input newUserPlaylist {
+  creator_id: Int!
+  playlist_id: Int!
+}
+
+input updateDate {
+  date: String!
+}
+
+input newDetailPlaylist {
+  playlist_id: Int!
+  video_id: Int!
+}
+
+input newPlaylist {
+  title: String!
+  date: String!
+  description: String!
+  viewer: Int!
+  creator_id: Int!
+  type: Int!
+}
+
+input updateBanner {
+  photo_background: String!
+}
+
+input updateIcon {
+  photo_profile: String!
+}
+
+input newCommunity {
+  title: String!
+  description: String!
+  post_image: String!
+  date: String!
+  creator_id: Int!
+}
+
+input updateTitlePlaylist {
+  title: String!
+}
+
+input updateDescriptionPlaylist {
+  description: String!
+}
+
+input updateTypePlaylist {
+  type: Int!
+}
+
+input updateVideo {
+  title: String!
+  description: String!
+  photo_thumbnail: String!
+  privacy: Int!
+}
+
+type Query {
+  getNewIdVideoUpload: [Video!]!
+  videos: [Video!]!
+  creators: [Creator!]!
+  categories: [Category!]!
+  comments: [Comment!]!
+  replies: [Reply!]!
+  subscribers: [Subscriber!]!
+  memberships: [Membership!]!
+  playlists: [Playlist!]!
+  playlistdetails: [Playlistdetail!]!
+  communities: [Community!]!
+  feedbackcommunities: [Feedbackcommunity!]!
+  feedbackvideos: [Feedbackvideo!]!
+  feedbackcomments: [Feedbackcomment!]!
+  userplaylists: [Userplaylist!]!
+  notifvideos: [Notifvideo!]!
+  notifposts: [Notifpost!]!
+  getHomeVideo: [Video!]!
+  getVideoById(id: Int!): [Video!]!
+  searchingVideo(search: String!): [Video!]!
+  searchingCreator(search: String!): [Creator!]!
+  searchingPlaylists(search: String!): [Playlist!]!
+  getVideo(date: String!): [Video!]!
+  getCreator(email: String!): [Creator!]!
+  getCreatorById(id: Int!): [Creator!]
+  getTrendingVideos(
+    d1: String!
+    d2: String!
+    d3: String!
+    d4: String!
+    d5: String!
+    d6: String!
+    d7: String!
+  ): [Video!]!
+  getVideoByCategoryId(categoryId: Int!): [Video!]!
+  getCommentById(id: Int!): [Comment!]!
+  getReplyById(id: Int!): [Reply!]!
+  getSubscriberByCreatorId(creator_id: Int!): [Subscriber!]!
+  getMembershipByCreatorId(creator_id: Int!): [Membership!]!
+  getPlaylistById(id: Int!): [Playlist!]!
+  getPlaylistdetailsById(id: Int!): [Playlistdetail!]!
+  getSubscriberByChannelId(channel_id: Int!): [Subscriber!]!
+  getPlaylistByCreatorId(creator_id: Int!): [Playlist!]!
+  getCommunityByCreatorId(creator_id: Int!): [Community!]!
+  getFeedbackCommunityByCommunityId(community_id: Int!): [Feedbackcommunity!]!
+  getFeedbackCommunityByLikerId(liker_id: Int!): [Feedbackcommunity!]!
+  getFeedbackVideoByVideoId(video_id: Int!): [Feedbackvideo!]!
+  getFeedbackVideoByLikerId(liker_id: Int!): [Feedbackvideo!]!
+  getFeedbackCommentByCommentId(comment_id: Int!): [Feedbackcomment!]!
+  getFeedbackCommentByLikerId(liker_id: Int!): [Feedbackcomment!]!
+  getUserPlaylistByCreatorId(creator_id: Int!): [Userplaylist!]!
+  getNotifVideoByCreatorId(creator_id: Int!): [Notifvideo!]!
+  getNotifPostByCreatorId(creator_id: Int!): [Notifpost!]!
+}
+
+type Mutation {
+  insertVideo(input: newVideo!): Video!
+  insertCreator(input: newCreator!): Creator!
+  insertComment(input: newComment!): Comment!
+  insertReply(input: newReply!): Reply!
+  insertSubscribe(input: newSubscriber!): Subscriber!
+  deleteSubscribe(creator_id: Int!, channel_id: Int!): Boolean!
+  insertMembership(input: newMembership!): Membership!
+  updateMembershipCreator(
+    creator_id: Int!
+    input: updateMembershipStatusCreator!
+  ): Creator!
+  insertLikeCommunity(input: newLikeCommunity!): Feedbackcommunity!
+  updateLikeCommunity(
+    community_id: Int!
+    liker_id: Int!
+    input: updateLikeCommunity!
+  ): Feedbackcommunity!
+  deleteLikeCommunity(community_id: Int!, liker_id: Int!): Boolean!
+  insertLikeVideo(input: newLikeVideo!): Feedbackvideo!
+  updateLikeVideo(
+    video_id: Int!
+    liker_id: Int!
+    input: updateLikeVideo!
+  ): Feedbackvideo!
+  deleteLikeVideo(video_id: Int!, liker_id: Int!): Boolean!
+  insertLikeComment(input: newLikeComment!): Feedbackcomment!
+  updateLikeComment(
+    comment_id: Int!
+    liker_id: Int!
+    input: updateLikeComment!
+  ): Feedbackcomment!
+  deleteLikeComment(comment_id: Int!, liker_id: Int!): Boolean!
+  insertUserPlaylist(input: newUserPlaylist!): Userplaylist!
+  deleteUserPlaylist(creator_id: Int!, playlist_id: Int!): Boolean!
+  deleteAllVideoPlaylist(playlist_id: Int!): Boolean!
+  updateEditPlaylist(playlist_id: Int!, input: updateDate!): Playlist!
+  deleteVideoPlaylist(playlist_id: Int!, video_id: Int!): Boolean!
+  insertDetailPlaylist(input: newDetailPlaylist!): Playlistdetail!
+  insertNewPlaylist(input: newPlaylist!): Playlist!
+  deletePlaylistByPlaylistId(playlist_id: Int!): Boolean!
+  updateBanner(creator_id: Int!, input: updateBanner!): Creator!
+  updateIcon(creator_id: Int!, input: updateIcon!): Creator!
+  insertCommunity(input: newCommunity!): Community!
+  updateTitlePlaylist(playlist_id: Int!, input: updateTitlePlaylist!): Playlist!
+  updateDescriptionPlaylist(
+    playlist_id: Int!
+    input: updateDescriptionPlaylist!
+  ): Playlist!
+  updateTypePlaylist(playlist_id: Int!, input: updateTypePlaylist!): Playlist!
+  deleteVideo(video_id: Int!): Boolean!
+  updateVideo(id: Int!, input: updateVideo!): Video!
+}
